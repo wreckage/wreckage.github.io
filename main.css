@@ -1,0 +1,623 @@
+/* ==========================================================================
+   Lit Para 101 -- Site Styles
+   Design concept: litigation-support "case file" register -- statute-style
+   section numbering, manila-tab structure, pleading-margin rule as the
+   hero's signature moment. See README.md for the token rationale.
+   ========================================================================== */
+
+:root {
+  --paper: #f7f6f1;
+  --manila: #e8dcb8;
+  --manila-dark: #d9c896;
+  --ink: #1d2b3a;
+  --ink-soft: #57626f;
+  --pad-yellow: #f2c230;
+  --stamp-red: #a23b2e;
+  --line: #d8d3c4;
+
+  --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --max-w: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--mono);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+a {
+  color: inherit;
+}
+
+.wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---- Eyebrow / section-tab device (the recurring signature) ---- */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--manila);
+  padding: 0.3rem 0.7rem 0.3rem 0.6rem;
+  border-radius: 3px 8px 3px 3px;
+  margin-bottom: 1.1rem;
+}
+
+.tab::before {
+  content: "\00a7";
+  font-weight: 700;
+}
+
+/* ---- Header / nav ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(247, 246, 241, 0.92);
+  backdrop-filter: saturate(140%) blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.wordmark {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.wordmark span {
+  color: var(--stamp-red);
+}
+
+nav.site-nav {
+  display: flex;
+  gap: 1.75rem;
+}
+
+nav.site-nav a {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--ink-soft);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+nav.site-nav a:hover,
+nav.site-nav a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--pad-yellow);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  padding: 0.7rem 1.1rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #142030;
+  box-shadow: 3px 3px 0 var(--pad-yellow);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-arrow::after {
+  content: "\2192";
+}
+
+.hero,
+.placeholder-page {
+  border-top: none;
+}
+
+/* ---- Hero ---- */
+.hero {
+  position: relative;
+  padding: 5rem 0 4.5rem;
+  overflow: hidden;
+}
+
+.hero .wrap {
+  position: relative;
+  padding-left: 2.75rem;
+}
+
+/* Pleading-margin rule: the hero's signature element. Echoes the numbered
+   left margin of a legal pleading. */
+.hero .margin-rule {
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.hero .margin-rule .tick {
+  position: absolute;
+  left: -0.35rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--ink-soft);
+  opacity: 0.55;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
+  max-width: 18ch;
+  animation: rise 0.6s ease both;
+}
+
+.hero .lede {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  max-width: 52ch;
+  animation: rise 0.6s ease 0.08s both;
+}
+
+.hero .cta-row {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  animation: rise 0.6s ease 0.16s both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Sections ---- */
+section {
+  padding: 4.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+section .section-head {
+  margin-bottom: 2.25rem;
+}
+
+section h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  max-width: 28ch;
+}
+
+/* ---- Capability grid ---- */
+.capabilities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 2.5rem;
+}
+
+.capability {
+  background: var(--paper);
+  padding: 1.6rem 1.7rem;
+  position: relative;
+}
+
+.capability .cap-index {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--stamp-red);
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.capability h3 {
+  font-size: 1.02rem;
+  margin-bottom: 0.5rem;
+}
+
+.capability p {
+  font-size: 0.93rem;
+  margin-bottom: 0;
+}
+
+/* ---- Stat ledger row ---- */
+.ledger {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.ledger div {
+  padding: 1.4rem 1rem;
+  text-align: center;
+  border-left: 1px solid var(--line);
+}
+
+.ledger div:first-child {
+  border-left: none;
+}
+
+.ledger .num {
+  font-family: var(--mono);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: block;
+}
+
+.ledger .label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---- Meet Maria (inverted panel) ---- */
+.maria {
+  background: var(--ink);
+  color: var(--paper);
+  border-top: 1px solid var(--ink);
+}
+
+.maria .section-head .tab {
+  background: var(--pad-yellow);
+}
+
+.maria h2 {
+  color: var(--paper);
+}
+
+.maria p {
+  color: #c7ccd3;
+}
+
+.maria-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2.75rem;
+  align-items: start;
+}
+
+.avatar {
+  width: 176px;
+  height: 176px;
+  border-radius: 10px;
+  background: linear-gradient(155deg, #2a3c50, #1d2b3a);
+  border: 1px solid #33465c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 3rem;
+  color: var(--pad-yellow);
+  position: relative;
+}
+
+.avatar::after {
+  content: "PLACEHOLDER \2014 PHOTO";
+  position: absolute;
+  bottom: 10px;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: #98a2ad;
+}
+
+.maria .credentials {
+  margin-top: 1.4rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--pad-yellow);
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.maria .credentials span {
+  white-space: nowrap;
+}
+
+/* Ledger stat block, re-themed for the dark Maria panel */
+.maria .ledger {
+  margin: 1.5rem 0 0.6rem;
+  border-top-color: var(--pad-yellow);
+  border-bottom-color: var(--pad-yellow);
+}
+
+.maria .ledger div {
+  border-left-color: rgba(255, 255, 255, 0.18);
+}
+
+.maria .ledger .num {
+  color: var(--paper);
+}
+
+.maria .ledger .label {
+  color: #c7ccd3;
+}
+
+.ledger-caption {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: #8f99a5;
+  margin: 0.6rem 0 1.5rem;
+}
+
+/* ---- Teaser cards (training / tool) ---- */
+.teaser {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  background: var(--manila);
+  border-radius: 6px;
+  padding: 2.25rem 2.5rem;
+  margin-top: 2rem;
+}
+
+.teaser .status-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--stamp-red);
+  padding: 0.25rem 0.55rem;
+  border-radius: 3px;
+  margin-bottom: 0.9rem;
+  transform: rotate(-1.5deg);
+}
+
+.teaser h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.teaser p {
+  margin-bottom: 0;
+  color: #4a4330;
+  max-width: 46ch;
+}
+
+/* ---- Footer ---- */
+footer.site-footer {
+  background: var(--ink);
+  color: #aab2bc;
+  padding: 3rem 0 2rem;
+}
+
+footer .wordmark {
+  color: var(--paper);
+}
+
+footer .wordmark span {
+  color: var(--pad-yellow);
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #33465c;
+}
+
+.footer-grid h4 {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #98a2ad;
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+.footer-grid p,
+.footer-grid a {
+  font-size: 0.9rem;
+  color: #d3d7dc;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.footer-grid a:hover {
+  color: var(--pad-yellow);
+}
+
+.footer-bottom {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: #98a2ad;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ---- Focus states (accessibility floor) ---- */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--stamp-red);
+  outline-offset: 2px;
+}
+
+/* ---- Simple placeholder page (videos.html) ---- */
+.placeholder-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.placeholder-page .wrap {
+  text-align: center;
+}
+
+.placeholder-page h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.placeholder-page p {
+  margin: 1rem auto 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 760px) {
+  .site-header .wrap {
+    flex-wrap: wrap;
+    row-gap: 0.6rem;
+  }
+
+  nav.site-nav {
+    width: 100%;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+  }
+
+  nav.site-nav a {
+    font-size: 0.78rem;
+  }
+
+  .maria-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar {
+    width: 128px;
+    height: 128px;
+    font-size: 2.2rem;
+  }
+
+  .capabilities {
+    grid-template-columns: 1fr;
+  }
+
+  .ledger {
+    grid-template-columns: 1fr;
+  }
+
+  .ledger div {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .ledger div:first-child {
+    border-top: none;
+  }
+
+  .teaser {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .hero .wrap {
+    padding-left: 1.75rem;
+  }
+
+  .hero .margin-rule {
+    left: 0.75rem;
+  }
+}
