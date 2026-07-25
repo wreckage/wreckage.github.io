@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trial Deadline Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Trial Deadline Calculator</h1>
+    <p class="subtitle">Enter a trial date and case handle to generate a Google Calendar-ready CSV of deadlines.</p>
+
+    <form id="deadline-form">
+      <label for="case-handle">Case Handle</label>
+      <input type="text" id="case-handle" name="case-handle" placeholder="e.g. Plaintiff (Defendant)" autocomplete="off" />
+
+      <label for="trial-date">Trial Date</label>
+      <input type="date" id="trial-date" name="trial-date" />
+
+      <button type="submit">Generate CSV</button>
+      <div id="form-error" class="error"></div>
+      <div id="form-status" class="status"></div>
+    </form>
+  </div>
+
+  <script src="calculations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
