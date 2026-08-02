@@ -520,15 +520,21 @@ const DEADLINE_DEFS = [
 ];
 
 /**
- * Main entry point. Returns an array of { subject, startDate, description }
- * ready to be written to CSV, in the same fixed order as the firm's
- * template.
+ * Main entry point. Returns an array of { subject, startDate, date,
+ * description } ready to be written to CSV or ICS, in the same fixed
+ * order as the firm's template. `startDate` is the pre-formatted
+ * M/D/YYYY string (for CSV); `date` is the underlying Date object (for
+ * ICS, or anything else that needs to do its own date math/formatting).
  */
 function computeDeadlines(caseHandle, trialDate) {
   const ctx = buildContext(trialDate);
-  return DEADLINE_DEFS.map((def) => ({
-    subject: def.subject(ctx, caseHandle, formatSubjDate),
-    startDate: formatCSVDate(def.date(ctx)),
-    description: def.notes,
-  }));
+  return DEADLINE_DEFS.map((def) => {
+    const date = def.date(ctx);
+    return {
+      subject: def.subject(ctx, caseHandle, formatSubjDate),
+      startDate: formatCSVDate(date),
+      date,
+      description: def.notes,
+    };
+  });
 }

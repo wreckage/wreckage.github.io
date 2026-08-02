@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Olmos Legal Operations</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="logo"><img src="assets/logo.png" alt="Olmos Legal Operations" /></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#what-we-do">What We Do</a>
+        <a href="index.html#maria">Meet Maria</a>
+        <a href="index.html#resources">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="narrow-page">
+      <div class="wrap">
+        <div class="card">
+          <h1>Client Login</h1>
+          <p class="subtitle">Log in to access training videos and the trial calendar tool.</p>
+
+          <form id="login-form">
+            <label class="field-label" for="username">Username</label>
+            <input class="field-input" type="text" id="username" name="username" autocomplete="username" />
+
+            <label class="field-label" for="password">Password</label>
+            <input class="field-input" type="password" id="password" name="password" autocomplete="current-password" />
+
+            <button type="submit" class="btn btn-primary">Log In</button>
+            <div id="form-error" class="form-error"></div>
+          </form>
+
+          <p class="demo-note">Demo credentials — username: <strong>user</strong> · password: <strong>password</strong></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-bottom">
+        <span>&copy; 2026 Olmos Legal Operations. All rights reserved.</span>
+        <span>Site in progress — internal draft</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('login-form');
+      const errorEl = document.getElementById('form-error');
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect') || 'index.html';
+
+      // If already logged in, skip the form entirely.
+      if (isLoggedIn()) {
+        window.location.replace(redirect);
+        return;
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        if (attemptLogin(username, password)) {
+          window.location.href = redirect;
+        } else {
+          errorEl.textContent = 'Incorrect username or password.';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

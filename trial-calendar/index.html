@@ -3,26 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trial Deadline Calculator</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Trial Calendar Tool — Olmos Legal Operations</title>
+  <link rel="icon" href="../favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../main.css" />
+  <script src="../auth.js"></script>
+  <script>
+    // Blocking check, runs before the body renders: bounce to login if
+    // not "authenticated." See auth.js for the demo-only caveats.
+    requireAuth('../login.html', 'trial-calendar/index.html');
+  </script>
 </head>
 <body>
-  <div class="card">
-    <h1>Trial Deadline Calculator</h1>
-    <p class="subtitle">Enter a trial date and case handle to generate a Google Calendar-ready CSV of deadlines.</p>
 
-    <form id="deadline-form">
-      <label for="case-handle">Case Handle</label>
-      <input type="text" id="case-handle" name="case-handle" placeholder="e.g. Plaintiff (Defendant)" autocomplete="off" />
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo"><img src="../assets/logo.png" alt="Olmos Legal Operations" /></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html#resources">Resources</a>
+        <span class="auth-nav" data-auth-nav data-root="../"></span>
+      </nav>
+    </div>
+  </header>
 
-      <label for="trial-date">Trial Date</label>
-      <input type="date" id="trial-date" name="trial-date" />
+  <main>
+    <section class="tool-page">
+      <div class="wrap">
+        <a href="../index.html" class="back-link">&larr; Back to Olmos Legal Operations</a>
 
-      <button type="submit">Generate CSV</button>
-      <div id="form-error" class="error"></div>
-      <div id="form-status" class="status"></div>
-    </form>
-  </div>
+        <div class="card">
+          <h1>Trial Calendar Tool</h1>
+          <p class="subtitle">Enter a trial date and case handle to generate a calendar-ready file of litigation deadlines.</p>
+
+          <div class="notice">
+            <span class="notice-icon" aria-hidden="true">&#9888;</span>
+            <p>
+              <strong>Always double-check every date this tool produces</strong>
+              against the governing statutes, rules of court, and any
+              case-specific orders before relying on it. This tool is a
+              drafting aid, not a substitute for independent verification.
+              Olmos Legal Operations and its developers are not responsible
+              for any damages, missed deadlines, or other consequences
+              resulting from reliance on dates generated here.
+            </p>
+          </div>
+
+          <form id="deadline-form">
+            <label class="field-label" for="case-handle">Case Handle</label>
+            <input class="field-input" type="text" id="case-handle" name="case-handle" placeholder="e.g. Smith (District Name)" autocomplete="off" />
+
+            <label class="field-label" for="trial-date">Trial Date</label>
+            <input class="field-input" type="date" id="trial-date" name="trial-date" />
+
+            <label class="field-label" for="file-format">File Type</label>
+            <select class="field-input" id="file-format" name="file-format">
+              <option value="csv" selected>CSV (Google Calendar)</option>
+              <option value="ics">ICS (Outlook, Apple Calendar, etc.)</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary" id="submit-btn">Generate CSV</button>
+            <div id="form-error" class="form-error"></div>
+            <div id="form-status" class="form-status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-bottom">
+        <span>&copy; 2026 Olmos Legal Operations. All rights reserved.</span>
+        <span>Prototype — under active development</span>
+      </div>
+    </div>
+  </footer>
 
   <script src="calculations.js"></script>
   <script src="app.js"></script>
